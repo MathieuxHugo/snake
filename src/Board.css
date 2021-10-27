@@ -1,0 +1,26 @@
+#square{
+    border: 1px solid black;
+    height: 40px;
+    width: 40px;
+    float: left;
+}
+#row{
+    display: table;
+}
+
+
+.empty{
+    background-color: cyan;
+}
+
+.head{
+    background-color: goldenrod;
+}
+
+.snakeBody{
+    background-color: green;
+}
+
+.apple{
+    background-color: red;
+}
