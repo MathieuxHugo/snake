@@ -1,4 +1,57 @@
 .title{
-    font-size: larger;
+    font-size: 10vh;
     font-weight: bolder;
+    color: black;
+    margin: 0;
+    padding: 0;
 }
+
+.topbar{
+
+    height: 20vh;
+    color: black;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+}
+
+button{
+    color: black;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    font-size: 6vh;
+    margin-left: 1vw;
+    font-weight: bolder;
+  }
+
+  .dropdown:hover .title{
+    color: white;
+    text-shadow: 2vh 0 black, -2vh 0 black, 0 2vh black, 0 -2vh black,
+               1vh 1vh black, -1vh -1vh black, 1vh -1vh black, -1vh 1vh black;
+  }
+
+  button:hover {
+    color: white;
+    text-shadow: 0.4vh 0 black, -0.4vh 0 black, 0 0.4vh black, 0 -0.4vh black,
+               0.4vh 0.4vh black, -0.4vh -0.4vh black, 0.4vh -0.4vh black, -0.4vh 0.4vh black;
+               
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    background-color: white;
+  }
+
+  .dropdown:hover .dropdown-content {display: block;}

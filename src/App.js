@@ -3,6 +3,7 @@ import './App.css';
 import Board from './Board'
 import React from 'react';
 import Etats from './Etats';
+import Topbar from './Topbar';
 
 
 const Direction={
@@ -15,17 +16,34 @@ const Direction={
 class App extends React.Component{
   constructor(){
     super()
-    this.size=4
+    this.intervalTime=800
+    this.setSize=this.setSize.bind(this)
+    this.setSize(6)
+  }
+
+  setSize(size){
+    this.size=size
     this.board=[]
     this.createBoard()
-    this.state={gameOver: false,board:this.board}
+    this.state={gameOver: false, gameWon: false, board:this.board}
     this.snake={snakeHead: 1,snakeBody: [0]}
     this.apple=4*this.size+(this.size/2)
     this.direction=Direction.DOWN
     this.bufferDirection=Direction.DOWN
-    this.growBody=false
     this.placeSnake()
     this.placeApple()
+    this.startInterval()
+  }
+
+  startInterval(){
+    if(this.timerID==null){
+      this.timerID = setInterval(()=>this.move(),this.intervalTime)
+    }
+  }
+
+  stopInterval(){
+    clearInterval(this.timerID);  
+    this.timerID=null;
   }
 
   placeSnake(){
@@ -44,7 +62,6 @@ class App extends React.Component{
     this.apple=0
     while(whereApple>=0){
       this.apple++
-      console.log("placeApple"+this.apple)
       if(this.state.board[this.apple]===Etats.EMPTY){
         whereApple--
       }
@@ -78,19 +95,20 @@ class App extends React.Component{
     }
   }
   componentDidMount(){
-    this.timerID = setInterval(()=>this.move(),1000)
+    this.startInterval()
     document.addEventListener("keydown", this.onKeyDown);
   }
   componentWillUnmount() {
-    clearInterval(this.timerID);  
+    this.stopInterval();  
   }
-  gameOver=()=>{
-    clearInterval(this.timerID);
-    console.log("game over")
-    this.setState({gameOver: true});
+  lost=()=>{
+    this.stopInterval();  
+    this.state = {gameOver: true};
+    console.log("game over"+(!this.gameOver && !this.gameWon))
   }
-  gameWon=()=>{
-    clearInterval(this.timerID);
+  win=()=>{
+    this.stopInterval();  
+    this.state = {gameWon: true};
     console.log("You have won")
   }
   changeSquare=(c,etat)=>{
@@ -112,7 +130,7 @@ class App extends React.Component{
       }
     }
     else{
-      this.gameWon()
+      this.win()
     }
   }
   move=()=>{ 
@@ -123,7 +141,7 @@ class App extends React.Component{
           this.moveSnake(this.snake.snakeHead+this.size)
         }
         else{
-          this.gameOver()
+          this.lost()
         }
         break;
       case Direction.RIGHT:
@@ -131,7 +149,7 @@ class App extends React.Component{
           this.moveSnake(this.snake.snakeHead+1)
         }
         else{
-          this.gameOver()
+          this.lost()
         }
         break;
       case Direction.LEFT:
@@ -139,7 +157,7 @@ class App extends React.Component{
           this.moveSnake(this.snake.snakeHead-1)
         }
         else{
-          this.gameOver()
+          this.lost()
         }
         break;
       case Direction.UP:
@@ -147,17 +165,18 @@ class App extends React.Component{
           this.moveSnake(this.snake.snakeHead-this.size)
         }
         else{
-          this.gameOver()
+          this.lost()
         }
         break;
       default:
         break;
     }
+    
   }
   render(){
     return (
       <div>
-        <div class="topbar"></div>
+        <div class="topbar"><Topbar setSize = {this.setSize}></Topbar></div>
 
         <div class="content">
           <div id="board">< Board size={this.size} board={this.board}/></div>
