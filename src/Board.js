@@ -1,6 +1,5 @@
 
 import './Board.css'
-import Etats from './Etats'
 
 const Square =(props)=>{
     return(

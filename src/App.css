@@ -2,3 +2,17 @@
     display: flex;
     justify-content: center;
 }
+
+.topbar{
+    width: 100%;
+    height: 20vh;
+    background-color: white;
+}
+
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background-color: black;
+}

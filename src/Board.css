@@ -14,11 +14,12 @@
 }
 
 .head{
-    background-color: goldenrod;
+
+    background-image: "%PUBLIC_URL%/head.svg";
 }
 
 .snakeBody{
-    background-color: green;
+    background-image: "%PUBLIC_URL%/scale.svg";
 }
 
 .apple{

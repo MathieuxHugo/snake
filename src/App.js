@@ -45,7 +45,7 @@ class App extends React.Component{
     while(whereApple>=0){
       this.apple++
       console.log("placeApple"+this.apple)
-      if(this.state.board[this.apple]==Etats.EMPTY){
+      if(this.state.board[this.apple]===Etats.EMPTY){
         whereApple--
       }
     }
@@ -54,22 +54,22 @@ class App extends React.Component{
   onKeyDown=(event)=>{
     switch(event.keyCode){
       case 37:
-        if(this.direction!=Direction.RIGHT){
+        if(this.direction!==Direction.RIGHT){
           this.bufferDirection=Direction.LEFT
         }
         break;
       case 38:
-        if(this.direction!=Direction.DOWN){
+        if(this.direction!==Direction.DOWN){
           this.bufferDirection=Direction.UP
         }
         break;
       case 39:
-        if(this.direction!=Direction.LEFT){
+        if(this.direction!==Direction.LEFT){
           this.bufferDirection=Direction.RIGHT
         }
         break;
       case 40:
-        if(this.direction!=Direction.UP){
+        if(this.direction!==Direction.UP){
           this.bufferDirection=Direction.DOWN
         }
         break;
@@ -104,7 +104,7 @@ class App extends React.Component{
     this.snake.snakeHead=c
     this.changeSquare(this.snake.snakeHead,Etats.HEAD)
     if(this.snake.snakeBody.length<this.size*this.size-1){
-      if(c==this.apple){//test if the snake ate an apple, if he did replace the apple
+      if(c===this.apple){//test if the snake ate an apple, if he did replace the apple
         this.placeApple()
       }
       else{
@@ -119,7 +119,7 @@ class App extends React.Component{
     this.direction=this.bufferDirection
     switch(this.direction){
       case Direction.DOWN:
-        if((this.snake.snakeHead+this.size)<(this.size*this.size) && this.state.board[this.snake.snakeHead+this.size]!=Etats.SNAKE){
+        if((this.snake.snakeHead+this.size)<(this.size*this.size) && this.state.board[this.snake.snakeHead+this.size]!==Etats.SNAKE){
           this.moveSnake(this.snake.snakeHead+this.size)
         }
         else{
@@ -127,7 +127,7 @@ class App extends React.Component{
         }
         break;
       case Direction.RIGHT:
-        if((this.snake.snakeHead+1)%this.size!=0 && this.state.board[this.snake.snakeHead+1]!=Etats.SNAKE){
+        if((this.snake.snakeHead+1)%this.size!==0 && this.state.board[this.snake.snakeHead+1]!==Etats.SNAKE){
           this.moveSnake(this.snake.snakeHead+1)
         }
         else{
@@ -135,7 +135,7 @@ class App extends React.Component{
         }
         break;
       case Direction.LEFT:
-        if((this.snake.snakeHead)%this.size!=0 && this.state.board[this.snake.snakeHead-1]!=Etats.SNAKE){
+        if((this.snake.snakeHead)%this.size!==0 && this.state.board[this.snake.snakeHead-1]!==Etats.SNAKE){
           this.moveSnake(this.snake.snakeHead-1)
         }
         else{
@@ -143,18 +143,25 @@ class App extends React.Component{
         }
         break;
       case Direction.UP:
-        if(this.snake.snakeHead>=this.size  && this.state.board[this.snake.snakeHead-this.size]!=Etats.SNAKE){
+        if(this.snake.snakeHead>=this.size  && this.state.board[this.snake.snakeHead-this.size]!==Etats.SNAKE){
           this.moveSnake(this.snake.snakeHead-this.size)
         }
         else{
           this.gameOver()
         }
         break;
+      default:
+        break;
     }
   }
   render(){
     return (
-      <div id="board">< Board size={this.size} board={this.board}/>
+      <div>
+        <div class="topbar"></div>
+
+        <div class="content">
+          <div id="board">< Board size={this.size} board={this.board}/></div>
+        </div>
       </div>
     );  
   }
